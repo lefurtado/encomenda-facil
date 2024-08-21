@@ -1,19 +1,29 @@
-import { BoltIcon, BoxIcon, HomeIcon } from "lucide-react";
+import {
+  SettingsIcon,
+  BoxIcon,
+  UsersIcon,
+  LayoutDashboardIcon,
+} from "lucide-react";
 
 export const paths = [
   {
     path: "/",
-    icon: HomeIcon,
+    icon: LayoutDashboardIcon,
     name: "Home",
   },
   {
-    path: "/transacoes",
+    path: "/encomendas",
     icon: BoxIcon,
-    name: "Transações",
+    name: "Encomendas",
+  },
+  {
+    path: "/moradores",
+    icon: UsersIcon,
+    name: "Moradores",
   },
   {
     path: "/configuracao",
-    icon: BoltIcon,
+    icon: SettingsIcon,
     name: "Configuração",
   },
 ];

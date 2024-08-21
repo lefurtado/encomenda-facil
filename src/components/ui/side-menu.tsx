@@ -12,7 +12,7 @@ export function SideMenu() {
           <AvatarImage className="bg-white p-1" src="/next.svg" />
           <AvatarFallback>FN</AvatarFallback>
         </Avatar>
-        <h1 className="text-white text-xl">FINANÇAS</h1>
+        <h1 className="text-white text-xl">ENCOMENDA FÁCIL</h1>
       </div>
       <ul className="text-white flex flex-col gap-2">
         {navItems.map((item) => (
