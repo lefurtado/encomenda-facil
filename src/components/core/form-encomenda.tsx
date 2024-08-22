@@ -35,7 +35,7 @@ const formSchema = z.object({
   amount: z.string(),
 });
 
-export default function FormTransaction() {
+export default function FormEncomenda() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { PencilIcon, PackageCheckIcon } from "lucide-react";
+import { PencilIcon, TrashIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,7 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
@@ -22,24 +21,31 @@ import {
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Encomenda = {
+export type Morador = {
   id: number;
-  moradorNome: string;
+  nome: string;
+  telefone: string;
+  email: string;
   bloco: string;
   apartamento: number;
-  dataHoraChegada: string;
-  detalhes: string;
-  status: "retirado" | "pendente" | "rejeitado";
 };
 
-export const columns: ColumnDef<Encomenda>[] = [
+export const columns: ColumnDef<Morador>[] = [
   {
     accessorKey: "id",
     header: "ID",
   },
   {
-    accessorKey: "moradorNome",
+    accessorKey: "nome",
     header: "Nome",
+  },
+  {
+    accessorKey: "telefone",
+    header: "Telefone",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
   },
   {
     accessorKey: "bloco",
@@ -48,35 +54,6 @@ export const columns: ColumnDef<Encomenda>[] = [
   {
     accessorKey: "apartamento",
     header: "Apartamento",
-  },
-  {
-    accessorKey: "dataHoraChegada",
-    header: "Data Chegada",
-  },
-  {
-    accessorKey: "detalhes",
-    header: "Detalhes",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      return (
-        <div className="flex items-center">
-          {row.getValue("status") === "retirado" && (
-            <Badge className="bg-green-500 hover:bg-green-500/80">
-              Retirado
-            </Badge>
-          )}
-          {row.getValue("status") === "pendente" && (
-            <Badge variant="outline">Pendente</Badge>
-          )}
-          {row.getValue("status") === "rejeitado" && (
-            <Badge variant="destructive">Rejeitado</Badge>
-          )}
-        </div>
-      );
-    },
   },
   {
     id: "actions",
@@ -115,11 +92,11 @@ export const columns: ColumnDef<Encomenda>[] = [
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <PackageCheckIcon className="h-4 w-4 text-green-700" />
+                  <TrashIcon className="h-4 w-4 text-red-600" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Entregar</p>
+                <p>Excluir</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

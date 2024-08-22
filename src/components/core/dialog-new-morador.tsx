@@ -1,36 +1,29 @@
 import { PlusIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import FormEncomenda from "./form-encomenda";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import FormMorador from "./form-morador";
 
-export default function DialogNewTransaction() {
+export default function DialogNewMorador() {
   return (
     <div className="flex flex-col sm:items-center sm:flex-row justify-between mb-4">
-      <h2 className="mt-5 text-4xl font-semibold">Encomendas</h2>
+      <h2 className="mt-5 text-4xl font-semibold">Moradores</h2>
       <Dialog>
         <Button asChild>
           <DialogTrigger>
             <PlusIcon className="mr-2 h-4 w-4" />
-            Registrar Encomenda
+            Registrar Morador
           </DialogTrigger>
         </Button>
         <DialogContent className="sm:max-w-[425px] max-w-xs rounded-xl">
           <DialogHeader>
-            <DialogTitle>Adicionar encomenda</DialogTitle>
+            <DialogTitle>Adicionar Morador</DialogTitle>
             <DialogDescription>
-              Formulário para adicionar nova encomenda
+              Formulário para adicionar novo morador
             </DialogDescription>
           </DialogHeader>
-          <FormEncomenda />
+          <FormMorador />
         </DialogContent>
       </Dialog>
     </div>
-  );
+  )
 }
