@@ -43,7 +43,16 @@ const formSchema = z.object({
   status: z.string(), // select
   date: z.date(),
   detalhes: z.string(),
+  tipo: z.string(),
 });
+
+const tipoOptions = [
+  { id: 1, value: "1", text: "Amazon" },
+  { id: 2, value: "2", text: "MercadoLivre" },
+  { id: 3, value: "3", text: "Shopee" },
+  { id: 4, value: "4", text: "AliExpress" },
+  { id: 5, value: "5", text: "Correios" },
+];
 
 export default function FormEncomenda(props: EncomendaProps) {
   const [datePopover, setDatePopover] = React.useState<boolean>(false); // estado do date popover
@@ -205,6 +214,33 @@ export default function FormEncomenda(props: EncomendaProps) {
                         value={morador.id.toString()}
                       >
                         {`${morador.nome} - ${morador.apartamento}${morador.bloco}`}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="tipo"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tipo</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field?.value?.toString()}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione um tipo" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {tipoOptions.map((tipo) => (
+                      <SelectItem key={tipo.id} value={tipo.value}>
+                        {tipo.text}
                       </SelectItem>
                     ))}
                   </SelectContent>
