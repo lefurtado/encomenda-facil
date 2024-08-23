@@ -23,7 +23,7 @@ import {
 } from "../ui/select";
 import InputMask from "react-input-mask";
 
-const blocosOptions = [
+export const blocosOptions = [
   { value: 1, text: "Ares" },
   { value: 2, text: "Brisas" },
   { value: 3, text: "Caminhos" },

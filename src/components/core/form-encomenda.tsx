@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { cn } from "@/lib/utils";
@@ -26,58 +27,120 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { ptBR } from "date-fns/locale";
+import { blocosOptions } from "./form-morador";
+import { moradores } from "@/app/moradores/page";
 
 const formSchema = z.object({
-  description: z.string(),
+  bloco: z.string(),
+  apartamento: z.number().min(21, "Mínimo AP 21").max(196, "Máximo AP 196"),
+  idMorador: z.string(),
+  status: z.string(), // select
   date: z.date(),
-  category: z.string(),
-  account: z.string(),
-  amount: z.string(),
+  detalhes: z.string(),
 });
 
 export default function FormEncomenda() {
+  const [datePopover, setDatePopover] = React.useState<boolean>(false); // estado do date popover
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: "",
+      bloco: "",
+      apartamento: undefined,
+      idMorador: "",
+      status: "pendente",
       date: undefined,
-      category: "",
-      account: "",
-      amount: "",
+      detalhes: "",
     },
   });
 
+  const { watch } = form;
+
+  const blocoValue = watch("bloco");
+  const apartamentoValue = watch("apartamento");
+  const dateValue = watch("date");
+
   function onSubmit(values: z.infer<typeof formSchema>) {
+    const formatData = {
+      ...values,
+      date: format(values.date, "dd/MM/yyyy"),
+    };
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    console.log(formatData);
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="flex flex-col gap-5">
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Descrição</FormLabel>
-                <FormControl>
-                  <Input placeholder="Insira uma descrição" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex gap-4">
+            <div className="w-full">
+              <FormField
+                control={form.control}
+                name="bloco"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Bloco</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value.toString()}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione um bloco" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {blocosOptions.map((item) => (
+                          <SelectItem
+                            key={item.value}
+                            value={item.value.toString()}
+                          >
+                            {item.text}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="w-full">
+              <FormField
+                disabled={!blocoValue}
+                control={form.control}
+                name="apartamento"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Apartamento</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(
+                            value === "" ? undefined : parseInt(value, 10)
+                          );
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
           <FormField
             control={form.control}
             name="date"
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Data</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
+                <Popover open={datePopover} onOpenChange={setDatePopover}>
+                  <PopoverTrigger disabled={!apartamentoValue} asChild>
                     <FormControl>
                       <Button
                         variant={"outline"}
@@ -85,9 +148,10 @@ export default function FormEncomenda() {
                           "w-full pl-3 text-left font-normal",
                           !field.value && "text-muted-foreground"
                         )}
+                        onClick={() => setDatePopover(true)}
                       >
                         {field.value ? (
-                          format(field.value, "PPP")
+                          format(field.value, "P", { locale: ptBR })
                         ) : (
                           <span>Escolha uma data</span>
                         )}
@@ -99,11 +163,12 @@ export default function FormEncomenda() {
                     <Calendar
                       mode="single"
                       selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
+                      onSelect={(date) => {
+                        field.onChange(date); // Armazena a data como objeto Date
+                        setDatePopover(false); // Fecha o popover
+                      }}
                       initialFocus
+                      locale={ptBR}
                     />
                   </PopoverContent>
                 </Popover>
@@ -113,26 +178,29 @@ export default function FormEncomenda() {
           />
           <FormField
             control={form.control}
-            name="account"
+            name="idMorador"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Conta</FormLabel>
+                <FormLabel>Morador</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  defaultValue={field.value.toString()}
+                  disabled={!dateValue}
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Selecione uma conta" />
+                      <SelectValue placeholder="Selecione um morador" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="credit-card">
-                      Cartão de Crédito
-                    </SelectItem>
-                    <SelectItem value="current-account">
-                      Conta Corrente
-                    </SelectItem>
+                    {moradores.map((morador) => (
+                      <SelectItem
+                        key={morador.id}
+                        value={morador.id.toString()}
+                      >
+                        {`${morador.nome} - ${morador.apartamento}${morador.bloco}`}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -141,44 +209,15 @@ export default function FormEncomenda() {
           />
           <FormField
             control={form.control}
-            name="category"
+            name="detalhes"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Categoria</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecione uma categoria" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="alimentation">Alimentação</SelectItem>
-                    <SelectItem value="fixed-expenses">
-                      Despesas Fixas
-                    </SelectItem>
-                    <SelectItem value="home">Moradia</SelectItem>
-                    <SelectItem value="leisure">Lazer</SelectItem>
-                    <SelectItem value="clothing">Vestuário</SelectItem>
-                    <SelectItem value="health">Saúde</SelectItem>
-                    <SelectItem value="transport">Transporte</SelectItem>
-                    <SelectItem value="education">Educação</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="amount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Valor</FormLabel>
+                <FormLabel>Detalhes</FormLabel>
                 <FormControl>
-                  <Input placeholder="Insira o valor" {...field} />
+                  <Textarea
+                    placeholder="Insira a descrição do pacote"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

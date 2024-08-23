@@ -101,7 +101,7 @@ export const columns: ColumnDef<Encomenda>[] = [
                   <DialogHeader>
                     <DialogTitle>Are you absolutely sure?</DialogTitle>
                     <DialogDescription>
-                      {row.getValue("description")}
+                      {row.getValue("moradorNome")}
                     </DialogDescription>
                   </DialogHeader>
                   <DialogFooter>

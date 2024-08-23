@@ -78,7 +78,7 @@ export const columns: ColumnDef<Morador>[] = [
                   <DialogHeader>
                     <DialogTitle>Are you absolutely sure?</DialogTitle>
                     <DialogDescription>
-                      {row.getValue("description")}
+                      {row.getValue("nome")}
                     </DialogDescription>
                   </DialogHeader>
                   <DialogFooter>

@@ -10,7 +10,7 @@ import {
 import { DataTable } from "@/components/ui/data-table";
 import { columns, Morador } from "./columns";
 
-const moradores: Morador[] = [
+export const moradores: Morador[] = [
   {
     id: 1,
     nome: "João Silva",
