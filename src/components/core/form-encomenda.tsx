@@ -30,28 +30,33 @@ import {
 import { ptBR } from "date-fns/locale";
 import { blocosOptions } from "./form-morador";
 import { moradores } from "@/app/moradores/page";
+import { Encomenda } from "@/app/encomendas/columns";
+
+type EncomendaProps = {
+  encomenda: Encomenda;
+};
 
 const formSchema = z.object({
   bloco: z.string(),
   apartamento: z.number().min(21, "Mínimo AP 21").max(196, "Máximo AP 196"),
-  idMorador: z.string(),
+  idMorador: z.number(),
   status: z.string(), // select
   date: z.date(),
   detalhes: z.string(),
 });
 
-export default function FormEncomenda() {
+export default function FormEncomenda(props: EncomendaProps) {
   const [datePopover, setDatePopover] = React.useState<boolean>(false); // estado do date popover
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bloco: "",
-      apartamento: undefined,
-      idMorador: "",
-      status: "pendente",
-      date: undefined,
-      detalhes: "",
+      bloco: props?.encomenda?.bloco || "",
+      apartamento: props?.encomenda?.apartamento || undefined,
+      idMorador: props?.encomenda?.id || undefined,
+      status: props?.encomenda?.status || "pendente",
+      date: props?.encomenda?.dataHoraChegada || undefined,
+      detalhes: props?.encomenda?.detalhes || "",
     },
   });
 
@@ -60,6 +65,7 @@ export default function FormEncomenda() {
   const blocoValue = watch("bloco");
   const apartamentoValue = watch("apartamento");
   const dateValue = watch("date");
+  const moradorValue = watch("idMorador");
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const formatData = {
@@ -96,7 +102,7 @@ export default function FormEncomenda() {
                         {blocosOptions.map((item) => (
                           <SelectItem
                             key={item.value}
-                            value={item.value.toString()}
+                            value={item.sigla.toString()}
                           >
                             {item.text}
                           </SelectItem>
@@ -184,7 +190,7 @@ export default function FormEncomenda() {
                 <FormLabel>Morador</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value.toString()}
+                  defaultValue={field?.value?.toString()}
                   disabled={!dateValue}
                 >
                   <FormControl>

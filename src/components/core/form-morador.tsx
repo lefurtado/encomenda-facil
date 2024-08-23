@@ -24,10 +24,10 @@ import {
 import InputMask from "react-input-mask";
 
 export const blocosOptions = [
-  { value: 1, text: "Ares" },
-  { value: 2, text: "Brisas" },
-  { value: 3, text: "Caminhos" },
-  { value: 4, text: "Destinos" },
+  { value: 1, text: "Ares", sigla: "A" },
+  { value: 2, text: "Brisas", sigla: "B" },
+  { value: 3, text: "Caminhos", sigla: "C" },
+  { value: 4, text: "Destinos", sigla: "D" },
 ];
 
 const formSchema = z.object({
@@ -126,7 +126,7 @@ export default function FormMorador() {
                         {blocosOptions.map((item) => (
                           <SelectItem
                             key={item.value}
-                            value={item.value.toString()}
+                            value={item.sigla.toString()}
                           >
                             {item.text}
                           </SelectItem>

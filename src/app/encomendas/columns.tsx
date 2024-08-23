@@ -19,15 +19,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import FormEncomenda from "@/components/core/form-encomenda";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Encomenda = {
   id: number;
   moradorNome: string;
+  idMorador: number;
   bloco: string;
   apartamento: number;
-  dataHoraChegada: string;
+  dataHoraChegada: Date;
   detalhes: string;
   status: "retirado" | "pendente" | "rejeitado";
 };
@@ -99,14 +101,12 @@ export const columns: ColumnDef<Encomenda>[] = [
                 </TooltipContent>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    <DialogTitle>Editar encomenda</DialogTitle>
                     <DialogDescription>
-                      {row.getValue("moradorNome")}
+                      Formulário para editar encomenda
                     </DialogDescription>
                   </DialogHeader>
-                  <DialogFooter>
-                    <Button type="submit">Save changes</Button>
-                  </DialogFooter>
+                  <FormEncomenda encomenda={row._valuesCache} />
                 </DialogContent>
               </Tooltip>
             </TooltipProvider>

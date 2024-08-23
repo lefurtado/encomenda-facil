@@ -14,6 +14,7 @@ const encomendas: Encomenda[] = [
   {
     id: 1,
     moradorNome: "João Silva",
+    idMorador: 1,
     bloco: "A",
     apartamento: 101,
     dataHoraChegada: "2024-08-20 14:30",
@@ -23,6 +24,7 @@ const encomendas: Encomenda[] = [
   {
     id: 2,
     moradorNome: "Maria Oliveira",
+    idMorador: 2,
     bloco: "B",
     apartamento: 202,
     dataHoraChegada: "2024-08-20 15:00",
@@ -32,6 +34,7 @@ const encomendas: Encomenda[] = [
   {
     id: 3,
     moradorNome: "Carlos Pereira",
+    idMorador: 3,
     bloco: "C",
     apartamento: 303,
     dataHoraChegada: "2024-08-21 09:45",
@@ -41,6 +44,7 @@ const encomendas: Encomenda[] = [
   {
     id: 4,
     moradorNome: "Ana Costa",
+    idMorador: 4,
     bloco: "D",
     apartamento: 404,
     dataHoraChegada: "2024-08-21 11:20",
@@ -50,6 +54,7 @@ const encomendas: Encomenda[] = [
   {
     id: 5,
     moradorNome: "Pedro Almeida",
+    idMorador: 5,
     bloco: "A",
     apartamento: 105,
     dataHoraChegada: "2024-08-21 12:15",
@@ -59,6 +64,7 @@ const encomendas: Encomenda[] = [
   {
     id: 6,
     moradorNome: "Fernanda Lima",
+    idMorador: 6,
     bloco: "B",
     apartamento: 206,
     dataHoraChegada: "2024-08-21 13:10",
@@ -68,6 +74,7 @@ const encomendas: Encomenda[] = [
   {
     id: 7,
     moradorNome: "Lucas Souza",
+    idMorador: 7,
     bloco: "C",
     apartamento: 307,
     dataHoraChegada: "2024-08-21 14:25",
@@ -77,6 +84,7 @@ const encomendas: Encomenda[] = [
   {
     id: 8,
     moradorNome: "Juliana Ferreira",
+    idMorador: 8,
     bloco: "D",
     apartamento: 408,
     dataHoraChegada: "2024-08-21 15:40",
@@ -86,6 +94,7 @@ const encomendas: Encomenda[] = [
   {
     id: 9,
     moradorNome: "Bruno Rocha",
+    idMorador: 9,
     bloco: "A",
     apartamento: 109,
     dataHoraChegada: "2024-08-21 16:05",
@@ -95,6 +104,7 @@ const encomendas: Encomenda[] = [
   {
     id: 10,
     moradorNome: "Patrícia Ribeiro",
+    idMorador: 10,
     bloco: "B",
     apartamento: 210,
     dataHoraChegada: "2024-08-21 17:20",
