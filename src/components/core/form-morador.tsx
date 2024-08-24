@@ -44,6 +44,8 @@ const formSchema = z.object({
 });
 
 export default function FormMorador(props: MoradorProps) {
+  const existeProps = props.morador; // verifica se o valor vem via props para modificar o botao
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -165,7 +167,7 @@ export default function FormMorador(props: MoradorProps) {
           </div>
         </div>
         <div className="flex gap-2 justify-end pt-7">
-          {nomeValue ? (
+          {existeProps ? (
             <Button className="bg-blue-600 hover:bg-blue-700" type="submit">
               Salvar
             </Button>

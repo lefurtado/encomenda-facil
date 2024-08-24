@@ -59,6 +59,8 @@ export const tipoOptions = [
 export default function FormEncomenda(props: EncomendaProps) {
   const [datePopover, setDatePopover] = React.useState<boolean>(false); // estado do date popover
 
+  const existeProps = props.encomenda; // verifica se o valor vem via props para modificar o botao
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -261,7 +263,7 @@ export default function FormEncomenda(props: EncomendaProps) {
           />
         </div>
         <div className="flex gap-2 justify-end pt-7">
-          {blocoValue ? (
+          {existeProps ? (
             <Button className="bg-blue-600 hover:bg-blue-700" type="submit">
               Salvar
             </Button>
