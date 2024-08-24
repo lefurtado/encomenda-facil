@@ -19,6 +19,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import FormEncomenda from "@/components/core/form-encomenda";
+import FormEntrega from "@/components/core/form-entrega";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -110,23 +111,36 @@ export const columns: ColumnDef<Encomenda>[] = [
                       Formulário para editar encomenda
                     </DialogDescription>
                   </DialogHeader>
-                  <FormEncomenda encomenda={row._valuesCache} />
+                  <FormEncomenda encomenda={row.original} />
                 </DialogContent>
               </Tooltip>
             </TooltipProvider>
           </Dialog>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <PackageCheckIcon className="h-4 w-4 text-green-700" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Entregar</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Dialog>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" asChild>
+                    <DialogTrigger>
+                      <PackageCheckIcon className="h-4 w-4 text-green-700" />
+                    </DialogTrigger>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Entregar</p>
+                </TooltipContent>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Entregar encomenda</DialogTitle>
+                    <DialogDescription>
+                      Formulário para entregar encomenda
+                    </DialogDescription>
+                  </DialogHeader>
+                  <FormEntrega encomenda={row.original} />
+                </DialogContent>
+              </Tooltip>
+            </TooltipProvider>
+          </Dialog>
         </div>
       );
     },
