@@ -81,7 +81,7 @@ export const columns: ColumnDef<Morador>[] = [
                       Formulário para editar morador
                     </DialogDescription>
                   </DialogHeader>
-                  <FormMorador morador={row._valuesCache} />
+                  <FormMorador morador={row.original} />
                 </DialogContent>
               </Tooltip>
             </TooltipProvider>
