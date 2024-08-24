@@ -38,8 +38,8 @@ type EncomendaProps = {
 
 const formSchema = z.object({
   bloco: z.string(),
-  apartamento: z.number().min(21, "Mínimo AP 21").max(196, "Máximo AP 196"),
-  idMorador: z.number(),
+  apartamento: z.string(),
+  idMorador: z.string(),
   status: z.string(), // select
   date: z.date(),
   detalhes: z.string(),
@@ -52,6 +52,8 @@ const tipoOptions = [
   { id: 3, value: "3", text: "Shopee" },
   { id: 4, value: "4", text: "AliExpress" },
   { id: 5, value: "5", text: "Correios" },
+  { id: 6, value: "6", text: "Submarino" },
+  { id: 7, value: "7", text: "Netshoes" },
 ];
 
 export default function FormEncomenda(props: EncomendaProps) {
@@ -62,9 +64,10 @@ export default function FormEncomenda(props: EncomendaProps) {
     defaultValues: {
       bloco: props?.encomenda?.bloco || "",
       apartamento: props?.encomenda?.apartamento || undefined,
-      idMorador: props?.encomenda?.id || undefined,
+      idMorador: props?.encomenda?.id.toString() || undefined,
+      tipo: props?.encomenda?.tipo || "",
       status: props?.encomenda?.status || "pendente",
-      date: props?.encomenda?.dataHoraChegada || undefined,
+      date: props?.encomenda?.dataChegada || undefined,
       detalhes: props?.encomenda?.detalhes || "",
     },
   });
@@ -74,7 +77,6 @@ export default function FormEncomenda(props: EncomendaProps) {
   const blocoValue = watch("bloco");
   const apartamentoValue = watch("apartamento");
   const dateValue = watch("date");
-  const moradorValue = watch("idMorador");
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const formatData = {
@@ -134,12 +136,6 @@ export default function FormEncomenda(props: EncomendaProps) {
                     <FormControl>
                       <Input
                         {...field}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          field.onChange(
-                            value === "" ? undefined : parseInt(value, 10)
-                          );
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -230,7 +226,7 @@ export default function FormEncomenda(props: EncomendaProps) {
                 <FormLabel>Tipo</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field?.value?.toString()}
+                  defaultValue={field.value}
                 >
                   <FormControl>
                     <SelectTrigger>

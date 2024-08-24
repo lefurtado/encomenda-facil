@@ -17,7 +17,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 91234-5678",
     email: "joao.silva@example.com",
     bloco: "A",
-    apartamento: 101,
+    apartamento: "101",
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 92345-6789",
     email: "maria.oliveira@example.com",
     bloco: "B",
-    apartamento: 202,
+    apartamento: "202",
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 93456-7890",
     email: "carlos.pereira@example.com",
     bloco: "C",
-    apartamento: 303,
+    apartamento: "303",
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 94567-8901",
     email: "ana.costa@example.com",
     bloco: "D",
-    apartamento: 404,
+    apartamento: "404",
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 95678-9012",
     email: "pedro.almeida@example.com",
     bloco: "A",
-    apartamento: 105,
+    apartamento: "105",
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 96789-0123",
     email: "fernanda.lima@example.com",
     bloco: "B",
-    apartamento: 206,
+    apartamento: "206",
   },
   {
     id: 7,
@@ -65,7 +65,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 97890-1234",
     email: "lucas.souza@example.com",
     bloco: "C",
-    apartamento: 307,
+    apartamento: "307",
   },
   {
     id: 8,
@@ -73,7 +73,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 98901-2345",
     email: "juliana.ferreira@example.com",
     bloco: "D",
-    apartamento: 408,
+    apartamento: "408",
   },
   {
     id: 9,
@@ -81,7 +81,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 99012-3456",
     email: "bruno.rocha@example.com",
     bloco: "A",
-    apartamento: 109,
+    apartamento: "109",
   },
   {
     id: 10,
@@ -89,7 +89,7 @@ export const moradores: Morador[] = [
     telefone: "(11) 90123-4567",
     email: "patricia.ribeiro@example.com",
     bloco: "B",
-    apartamento: 210,
+    apartamento: "210",
   },
 ];
 

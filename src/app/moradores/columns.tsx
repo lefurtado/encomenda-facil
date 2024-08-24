@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -18,6 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import FormMorador from "@/components/core/form-morador";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -27,7 +27,7 @@ export type Morador = {
   telefone: string;
   email: string;
   bloco: string;
-  apartamento: number;
+  apartamento: string;
 };
 
 export const columns: ColumnDef<Morador>[] = [
@@ -76,14 +76,12 @@ export const columns: ColumnDef<Morador>[] = [
                 </TooltipContent>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    <DialogTitle>Editar morador</DialogTitle>
                     <DialogDescription>
-                      {row.getValue("nome")}
+                      Formulário para editar morador
                     </DialogDescription>
                   </DialogHeader>
-                  <DialogFooter>
-                    <Button type="submit">Save changes</Button>
-                  </DialogFooter>
+                  <FormMorador morador={row._valuesCache} />
                 </DialogContent>
               </Tooltip>
             </TooltipProvider>

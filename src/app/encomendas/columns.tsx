@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -26,10 +25,11 @@ import FormEncomenda from "@/components/core/form-encomenda";
 export type Encomenda = {
   id: number;
   moradorNome: string;
-  idMorador: number;
+  idMorador: string;
   bloco: string;
-  apartamento: number;
-  dataHoraChegada: Date;
+  apartamento: string;
+  dataChegada: Date;
+  tipo: string;
   detalhes: string;
   status: "retirado" | "pendente" | "rejeitado";
 };
@@ -52,8 +52,12 @@ export const columns: ColumnDef<Encomenda>[] = [
     header: "Apartamento",
   },
   {
-    accessorKey: "dataHoraChegada",
+    accessorKey: "dataChegada",
     header: "Data Chegada",
+    cell: ({ row }) => {
+      const dataChegada = row.getValue("dataChegada") as Date;
+      return <div>{dataChegada.toLocaleDateString("pt-BR")}</div>;
+    },
   },
   {
     accessorKey: "detalhes",

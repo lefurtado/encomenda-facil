@@ -22,6 +22,11 @@ import {
   SelectValue,
 } from "../ui/select";
 import InputMask from "react-input-mask";
+import { Morador } from "@/app/moradores/columns";
+
+type MoradorProps = {
+  morador: Morador;
+};
 
 export const blocosOptions = [
   { value: 1, text: "Ares", sigla: "A" },
@@ -38,15 +43,15 @@ const formSchema = z.object({
   apartamento: z.string().min(1, "Número do apartamento deve ser maior que 0"),
 });
 
-export default function FormMorador() {
+export default function FormMorador(props: MoradorProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nome: "",
-      telefone: "",
-      email: "",
-      bloco: "",
-      apartamento: "",
+      nome: props?.morador?.nome || "",
+      telefone: props?.morador?.telefone || "",
+      email: props?.morador?.email || "",
+      bloco: props?.morador?.bloco || "",
+      apartamento: props?.morador?.apartamento || undefined,
     },
   });
 
