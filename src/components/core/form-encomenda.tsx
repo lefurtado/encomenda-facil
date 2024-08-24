@@ -33,7 +33,7 @@ import { moradores } from "@/app/moradores/page";
 import { Encomenda } from "@/app/encomendas/columns";
 
 type EncomendaProps = {
-  encomenda: Encomenda;
+  encomenda?: Encomenda;
 };
 
 const formSchema = z.object({
@@ -46,7 +46,7 @@ const formSchema = z.object({
   tipo: z.string(),
 });
 
-const tipoOptions = [
+export const tipoOptions = [
   { id: 1, value: "1", text: "Amazon" },
   { id: 2, value: "2", text: "MercadoLivre" },
   { id: 3, value: "3", text: "Shopee" },
@@ -134,9 +134,7 @@ export default function FormEncomenda(props: EncomendaProps) {
                   <FormItem>
                     <FormLabel>Apartamento</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                      />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -263,7 +261,13 @@ export default function FormEncomenda(props: EncomendaProps) {
           />
         </div>
         <div className="flex gap-2 justify-end pt-7">
-          <Button type="submit">Cadastrar</Button>
+          {blocoValue ? (
+            <Button className="bg-blue-600 hover:bg-blue-700" type="submit">
+              Salvar
+            </Button>
+          ) : (
+            <Button type="submit">Cadastrar</Button>
+          )}
         </div>
       </form>
     </Form>

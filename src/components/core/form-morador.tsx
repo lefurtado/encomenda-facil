@@ -25,7 +25,7 @@ import InputMask from "react-input-mask";
 import { Morador } from "@/app/moradores/columns";
 
 type MoradorProps = {
-  morador: Morador;
+  morador?: Morador;
 };
 
 export const blocosOptions = [
@@ -54,6 +54,10 @@ export default function FormMorador(props: MoradorProps) {
       apartamento: props?.morador?.apartamento || undefined,
     },
   });
+
+  const { watch } = form;
+
+  const nomeValue = watch("nome");
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -149,7 +153,7 @@ export default function FormMorador(props: MoradorProps) {
                 name="apartamento"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Número Apartamento</FormLabel>
+                    <FormLabel>Apartamento</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -161,7 +165,13 @@ export default function FormMorador(props: MoradorProps) {
           </div>
         </div>
         <div className="flex gap-2 justify-end pt-7">
-          <Button type="submit">Cadastrar</Button>
+          {nomeValue ? (
+            <Button className="bg-blue-600 hover:bg-blue-700" type="submit">
+              Salvar
+            </Button>
+          ) : (
+            <Button type="submit">Cadastrar</Button>
+          )}
         </div>
       </form>
     </Form>
