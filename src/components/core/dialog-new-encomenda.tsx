@@ -10,7 +10,7 @@ import {
 } from "../ui/dialog";
 import FormEncomenda from "./form-encomenda";
 
-export default function DialogNewTransaction() {
+export default function DialogNewEncomenda() {
   return (
     <div className="flex flex-col sm:items-center sm:flex-row justify-between mb-4">
       <h2 className="mt-5 text-4xl font-semibold">Encomendas</h2>

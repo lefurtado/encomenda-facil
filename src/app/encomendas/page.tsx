@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { DataTable } from "@/components/ui/data-table";
-import DialogNewTransaction from "@/components/core/dialog-new-package";
+import DialogNewEncomenda from "@/components/core/dialog-new-encomenda";
 
 const encomendas: Encomenda[] = [
   {
@@ -139,7 +139,7 @@ export default function Estoque() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <DialogNewTransaction />
+      <DialogNewEncomenda />
       <DataTable columns={columns} data={data} />
     </div>
   );
