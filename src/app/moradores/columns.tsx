@@ -48,7 +48,7 @@ export const columns: ColumnDef<Morador>[] = [
     header: "Email",
   },
   {
-    accessorKey: "idBloco",
+    accessorKey: "bloco",
     header: "Bloco",
   },
   {
