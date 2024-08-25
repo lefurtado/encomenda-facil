@@ -26,7 +26,7 @@ export type Morador = {
   nome: string;
   telefone: string;
   email: string;
-  bloco: string;
+  idBloco: number;
   apartamento: string;
 };
 
@@ -48,7 +48,7 @@ export const columns: ColumnDef<Morador>[] = [
     header: "Email",
   },
   {
-    accessorKey: "bloco",
+    accessorKey: "idBloco",
     header: "Bloco",
   },
   {
