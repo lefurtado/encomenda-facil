@@ -29,8 +29,10 @@ import {
 } from "../ui/select";
 import { ptBR } from "date-fns/locale";
 import { blocosOptions } from "./form-morador";
-import { Encomenda } from "@/app/encomendas/columns";
-import { tipoOptions } from "./form-encomenda";
+import { Encomenda } from "@/types/encomenda";
+import { useQuery } from "react-query";
+import { getTipos } from "@/services/tipos";
+import { Tipo } from "@/types/tipo";
 
 type EntregaProps = {
   encomenda?: Encomenda;
@@ -69,6 +71,12 @@ export default function FormEntrega(props: EntregaProps) {
     // ✅ This will be type-safe and validated.
     console.log(formatData);
   }
+
+  const { data: tiposData } = useQuery({
+    queryFn: async () => await getTipos(),
+    queryKey: ["tipos"],
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <Form {...form}>
@@ -141,7 +149,7 @@ export default function FormEntrega(props: EntregaProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {tipoOptions.map((tipo) => (
+                    {tiposData?.data?.map((tipo: Tipo) => (
                       <SelectItem key={tipo.id} value={tipo.value}>
                         {tipo.text}
                       </SelectItem>

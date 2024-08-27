@@ -29,8 +29,10 @@ import {
 } from "../ui/select";
 import { ptBR } from "date-fns/locale";
 import { blocosOptions } from "./form-morador";
-import { moradores } from "@/app/moradores/page";
-import { Encomenda } from "@/app/encomendas/columns";
+import { Encomenda } from "@/types/encomenda";
+import { useQuery } from "react-query";
+import { getTipos } from "@/services/tipos";
+import { Tipo } from "@/types/tipo";
 
 type EncomendaProps = {
   encomenda?: Encomenda;
@@ -45,16 +47,6 @@ const formSchema = z.object({
   detalhes: z.string(),
   tipo: z.string(),
 });
-
-export const tipoOptions = [
-  { id: 1, value: "1", text: "Amazon" },
-  { id: 2, value: "2", text: "MercadoLivre" },
-  { id: 3, value: "3", text: "Shopee" },
-  { id: 4, value: "4", text: "AliExpress" },
-  { id: 5, value: "5", text: "Correios" },
-  { id: 6, value: "6", text: "Submarino" },
-  { id: 7, value: "7", text: "Netshoes" },
-];
 
 export default function FormEncomenda(props: EncomendaProps) {
   const [datePopover, setDatePopover] = React.useState<boolean>(false); // estado do date popover
@@ -89,6 +81,12 @@ export default function FormEncomenda(props: EncomendaProps) {
     // ✅ This will be type-safe and validated.
     console.log(formatData);
   }
+
+  const { data: tiposData } = useQuery({
+    queryFn: async () => await getTipos(),
+    queryKey: ["tipos"],
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <Form {...form}>
@@ -204,14 +202,7 @@ export default function FormEncomenda(props: EncomendaProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {moradores.map((morador) => (
-                      <SelectItem
-                        key={morador.id}
-                        value={morador.id.toString()}
-                      >
-                        {`${morador.nome} - ${morador.apartamento}${morador.bloco}`}
-                      </SelectItem>
-                    ))}
+                    <SelectItem value="1">Alguma coisa</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -234,7 +225,7 @@ export default function FormEncomenda(props: EncomendaProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {tipoOptions.map((tipo) => (
+                    {tiposData?.data?.map((tipo: Tipo) => (
                       <SelectItem key={tipo.id} value={tipo.value}>
                         {tipo.text}
                       </SelectItem>

@@ -20,20 +20,10 @@ import {
 } from "@/components/ui/tooltip";
 import FormEncomenda from "@/components/core/form-encomenda";
 import FormEntrega from "@/components/core/form-entrega";
+import type { Encomenda } from "@/types/encomenda";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Encomenda = {
-  id: number;
-  moradorNome: string;
-  idMorador: string;
-  bloco: string;
-  apartamento: string;
-  dataChegada: Date;
-  tipo: string;
-  detalhes: string;
-  status: "retirado" | "pendente" | "rejeitado";
-};
 
 export const columns: ColumnDef<Encomenda>[] = [
   {
@@ -56,8 +46,9 @@ export const columns: ColumnDef<Encomenda>[] = [
     accessorKey: "dataChegada",
     header: "Data Chegada",
     cell: ({ row }) => {
-      const dataChegada = row.getValue("dataChegada") as Date;
-      return <div>{dataChegada.toLocaleDateString("pt-BR")}</div>;
+      const dataChegadaStr = row.getValue("dataChegada") as string;
+      const dataChegada = new Date(dataChegadaStr);
+      return <>{dataChegada?.toLocaleDateString("pt-BR")}</>;
     },
   },
   {

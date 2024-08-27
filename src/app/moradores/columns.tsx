@@ -18,17 +18,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import FormMorador from "@/components/core/form-morador";
+import { Morador } from "@/types/morador";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Morador = {
-  id: number;
-  nome: string;
-  telefone: string;
-  email: string;
-  idBloco: number;
-  apartamento: string;
-};
 
 export const columns: ColumnDef<Morador>[] = [
   {

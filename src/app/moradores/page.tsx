@@ -10,11 +10,12 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { DataTable } from "@/components/ui/data-table";
-import { columns, Morador } from "./columns";
+import { columns } from "./columns";
 import { useQuery } from "react-query";
 import { getMoradores } from "@/services/moradores";
 import { getBlocos } from "@/services/blocos";
 import { Bloco } from "@/types/bloco";
+import { Morador } from "@/types/morador";
 
 export default function Moradores() {
   const { data: moradoresData, isLoading } = useQuery({
