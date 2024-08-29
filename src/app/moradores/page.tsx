@@ -11,28 +11,18 @@ import {
 } from "@/components/ui/breadcrumb";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "./columns";
-import { useQuery } from "react-query";
-import { getMoradores } from "@/services/moradores";
-import { getBlocos } from "@/services/blocos";
 import { Bloco } from "@/types/bloco";
 import { Morador } from "@/types/morador";
+import { useMoradoresData } from "@/hooks/use-moradores-data";
+import { useBlocosData } from "@/hooks/use-blocos-data";
 
 export default function Moradores() {
-  const { data: moradoresData, isLoading } = useQuery({
-    queryFn: async () => await getMoradores(),
-    queryKey: ["moradores"],
-    refetchOnWindowFocus: false,
-  });
+  const { data: moradoresData, isLoading } = useMoradoresData();
+  const { data: blocosData } = useBlocosData();
 
-  const { data: blocosData } = useQuery({
-    queryFn: async () => await getBlocos(),
-    queryKey: ["blocos"],
-    refetchOnWindowFocus: false,
-  });
-
-  const moradoresComSiglaBloco = moradoresData?.data?.map(
+  const moradoresComSiglaBloco = moradoresData?.map(
     (morador: Morador) => {
-      const bloco = blocosData?.data?.find(
+      const bloco = blocosData?.find(
         (b: Bloco) => b.id == morador.idBloco.toString()
       );
       return {
