@@ -1,6 +1,7 @@
+import { Morador } from "@/types/morador";
 import { api } from ".";
 
-export async function getMoradores() {
-  const response = await api.get("/moradores");
-  return response;
-}
+export const getMoradores = async (): Promise<Morador[]> => {
+  const response = await api.get<Morador[]>("/moradores");
+  return response.data;
+};

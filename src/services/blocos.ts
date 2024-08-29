@@ -1,6 +1,7 @@
 import { api } from ".";
+import { Bloco } from "@/types/bloco";
 
-export async function getBlocos() {
-  const response = await api.get("/blocos");
-  return response;
-}
+export const getBlocos = async (): Promise<Bloco[]> => {
+  const response = await api.get<Bloco[]>("/blocos");
+  return response.data;
+};

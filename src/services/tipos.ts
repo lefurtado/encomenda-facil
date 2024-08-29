@@ -1,6 +1,7 @@
+import { Tipo } from "@/types/tipo";
 import { api } from ".";
 
-export async function getTipos() {
-  const response = await api.get("/tipos");
-  return response;
-}
+export const getTipos = async (): Promise<Tipo[]> => {
+  const response = await api.get<Tipo[]>("/tipos");
+  return response.data;
+};
