@@ -30,9 +30,8 @@ import {
 import { ptBR } from "date-fns/locale";
 import { blocosOptions } from "./form-morador";
 import { Encomenda } from "@/types/encomenda";
-import { useQuery } from "react-query";
-import { getTipos } from "@/services/tipos";
 import { Tipo } from "@/types/tipo";
+import { useTiposData } from "@/hooks/use-tipos-data";
 
 type EncomendaProps = {
   encomenda?: Encomenda;
@@ -50,6 +49,7 @@ const formSchema = z.object({
 
 export default function FormEncomenda(props: EncomendaProps) {
   const [datePopover, setDatePopover] = React.useState<boolean>(false); // estado do date popover
+  const { data: tiposData } = useTiposData();
 
   const existeProps = props.encomenda; // verifica se o valor vem via props para modificar o botao
 
@@ -81,12 +81,6 @@ export default function FormEncomenda(props: EncomendaProps) {
     // ✅ This will be type-safe and validated.
     console.log(formatData);
   }
-
-  const { data: tiposData } = useQuery({
-    queryFn: async () => await getTipos(),
-    queryKey: ["tipos"],
-    refetchOnWindowFocus: false,
-  });
 
   return (
     <Form {...form}>
@@ -225,7 +219,7 @@ export default function FormEncomenda(props: EncomendaProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {tiposData?.data?.map((tipo: Tipo) => (
+                    {tiposData?.map((tipo: Tipo) => (
                       <SelectItem key={tipo.id} value={tipo.value}>
                         {tipo.text}
                       </SelectItem>
