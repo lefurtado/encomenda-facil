@@ -20,6 +20,10 @@ export function SideMenu() {
             icon={<item.icon className="mr-2 h-5 w-5" />}
             name={item.name}
             path={item.path}
+            subItems={item.subItems?.map(subItem => ({
+              ...subItem,
+              icon: <subItem.icon className="mr-2 h-4 w-4" />
+            }))}
             key={item.name}
           />
         ))}

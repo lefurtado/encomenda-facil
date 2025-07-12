@@ -3,6 +3,10 @@ import {
   BoxIcon,
   UsersIcon,
   LayoutDashboardIcon,
+  UserIcon,
+  BuildingIcon,
+  PaletteIcon,
+  DatabaseIcon,
 } from "lucide-react";
 
 export const paths = [
@@ -22,8 +26,29 @@ export const paths = [
     name: "Moradores",
   },
   {
-    path: "/configuracao",
     icon: SettingsIcon,
     name: "Configuração",
+    subItems: [
+      {
+        name: "Perfil",
+        path: "/configuracao/perfil",
+        icon: UserIcon,
+      },
+      {
+        name: "Blocos",
+        path: "/configuracao/blocos",
+        icon: BuildingIcon,
+      },
+      {
+        name: "Tipos de Encomenda",
+        path: "/configuracao/tipos",
+        icon: PaletteIcon,
+      },
+      {
+        name: "Backup",
+        path: "/configuracao/backup",
+        icon: DatabaseIcon,
+      },
+    ],
   },
 ];
